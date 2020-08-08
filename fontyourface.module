@@ -21,7 +21,7 @@ use Drupal\fontyourface\Entity\FontDisplay;
  */
 function fontyourface_module_implements_alter(&$implementations, $hook) {
   if ($hook == 'page_attachments') {
-    // Move the fontyourface and submodules to be among the last to build on page.
+    // Move the fontyourface and submodules to be last to build on page.
     $list = ['fontyourface'];
     foreach (\Drupal::moduleHandler()->getImplementations('fontyourface_api') as $module_name) {
       if (isset($implementations[$module_name])) {
@@ -105,7 +105,8 @@ function fontyourface_page_attachments(&$page) {
   }
 
   $font_preview = &drupal_static('fontyourface_font_preview');
-  // On a font preview page, ONLY show the preview font and other base theme font.
+  // On a font preview page, ONLY show the preview font and other base theme
+  // font.
   if (empty($font_preview)) {
     // We are dealing with a regular page.
     $theme = \Drupal::theme()->getActiveTheme()->getName();

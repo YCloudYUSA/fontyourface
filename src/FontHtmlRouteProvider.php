@@ -94,4 +94,5 @@ class FontHtmlRouteProvider extends AdminHtmlRouteProvider {
       return $route;
     }
   }
+
 }

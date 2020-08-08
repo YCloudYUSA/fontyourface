@@ -22,7 +22,14 @@ class FontYourFaceController extends ControllerBase {
       $font->activate();
       if ($js == 'ajax') {
         $url = Url::fromRoute('entity.font.deactivate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
-        $url->setOptions(['attributes' => ['id' => 'font-status-' . $font->id(), 'class' => ['font-status', 'enabled', 'use-ajax']]]);
+        $url->setOptions(
+          [
+            'attributes' => [
+              'id' => 'font-status-' . $font->id(),
+              'class' => ['font-status', 'enabled', 'use-ajax'],
+            ],
+          ]
+        );
         $text = $this->t('Enable');
         $link = \Drupal::l($text, $url);
 
@@ -57,7 +64,14 @@ class FontYourFaceController extends ControllerBase {
       $font->deactivate();
       if ($js == 'ajax') {
         $url = Url::fromRoute('entity.font.activate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
-        $url->setOptions(['attributes' => ['id' => 'font-status-' . $font->id(), 'class' => ['font-status', 'disabled', 'use-ajax']]]);
+        $url->setOptions(
+          [
+            'attributes' => [
+              'id' => 'font-status-' . $font->id(),
+              'class' => ['font-status', 'disabled', 'use-ajax'],
+            ],
+          ]
+        );
         $text = $this->t('Enable');
         $link = \Drupal::l($text, $url);
 

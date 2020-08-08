@@ -6,7 +6,7 @@ use Drupal\Core\Url;
 use Drupal\Tests\BrowserTestBase;
 
 /**
- * Tests that installing @font-your-face provides access to the necessary sections.
+ * Tests that installing provides access to the necessary sections.
  *
  * @group fontyourface
  */

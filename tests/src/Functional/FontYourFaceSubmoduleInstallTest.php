@@ -90,7 +90,8 @@ class FontYourFaceSubmoduleInstallTest extends BrowserTestBase {
     $this->drupalGet(url::fromRoute('entity.font.activate', ['font' => 1, 'js' => 'nojs']));
     $this->assertText('Font Arial successfully enabled');
 
-    // Flush the caches. Not an issue in prod but seems to be in simpletest. Will keep an eye on it.
+    // Flush the caches. Not an issue in prod but seems to be in simpletest.
+    // Will keep an eye on it.
     $this->resetAll();
 
     $this->drupalGet('/node');

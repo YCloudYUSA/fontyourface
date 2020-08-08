@@ -3,7 +3,6 @@
 namespace Drupal\fontyourface\Form;
 
 use Drupal;
-use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\fontyourface\FontDisplayInterface;

@@ -207,8 +207,10 @@ function _google_fonts_api_convert_api_results(array $json_font_list) {
               $css_weight = $json_font_variant;
             }
             elseif (is_numeric(substr($json_font_variant, 0, 3))) {
-              // Variant is a combined string of number and string, like 400italic.
-              // The numeric part is always three characters long, so we can split it easily.
+              // Variant is a combined string of number and string, like
+              // 400italic.
+              // The numeric part is always three characters long, so we can
+              // split it easily.
               $css_style = substr($json_font_variant, 3);
               $css_weight = substr($json_font_variant, 0, 3);
             }
