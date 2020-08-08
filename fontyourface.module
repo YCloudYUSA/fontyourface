@@ -5,6 +5,7 @@
  * Contains fontyourface.module..
  */
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -404,7 +405,7 @@ function fontyourface_log($message, array $arguments) {
  */
 function fontyourface_save_and_generate_font_display_css(FontDisplayInterface $style) {
   $directory = file_build_uri('fontyourface/font_display');
-  file_prepare_directory($directory, Drupal\Core\File\FileSystemInterface::CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+  file_prepare_directory($directory, FileSystemInterface::CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
 
   $font = $style->getFont();
   $css_file = $directory . '/' . $style->id() . '.css';

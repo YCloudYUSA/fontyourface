@@ -5,6 +5,7 @@
  * Font Squirrel API module file.
  */
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 use Drupal\fontyourface\Entity\Font;
@@ -39,7 +40,7 @@ function fontsquirrel_api_entity_presave(EntityInterface $entity) {
     if ($entity->pid->value == 'fontsquirrel_api' && $entity->isActivated()) {
       $metadata = $entity->getMetadata();
       $directory_location = _fontsquirrel_api_get_font_directory_location($entity);
-      file_prepare_directory($directory_location, Drupal\Core\File\FileSystemInterface::CREATE_DIRECTORY);
+      file_prepare_directory($directory_location, FileSystemInterface::CREATE_DIRECTORY);
       $zip_location = file_build_uri('fontyourface/fontsquirrel/' . $metadata['path'] . '-fontfacekit.zip');
       // Throw an exception; make it hard if this fails.
       $uri = 'https://www.fontsquirrel.com/fontfacekit/' . $metadata['path'];
