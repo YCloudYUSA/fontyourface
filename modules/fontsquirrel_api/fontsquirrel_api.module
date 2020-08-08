@@ -44,12 +44,12 @@ function fontsquirrel_api_entity_presave(EntityInterface $entity) {
       // Throw an exception; make it hard if this fails.
       $uri = 'https://www.fontsquirrel.com/fontfacekit/' . $metadata['path'];
       $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain']]);
-      if (!file_exists(drupal_realpath($zip_location))) {
+      if (!file_exists(\Drupal::service('file_system')->realpath($zip_location))) {
         file_unmanaged_save_data($response->getBody(), $zip_location);
       }
       $files = [];
       $font_pathinfo = pathinfo($metadata['font_filename']);
-      if ($zip = zip_open(drupal_realpath($zip_location))) {
+      if ($zip = zip_open(\Drupal::service('file_system')->realpath($zip_location))) {
         while ($entry = zip_read($zip)) {
           $entry_name = zip_entry_name($entry);
           $path_info = pathinfo($entry_name);
