@@ -355,7 +355,7 @@ function fontscom_api_get_all_fonts($start = 0, $limit = 50) {
 
   $filters = fontscom_api_get_allowed_api_filters();
   if ($filters->FreeOrPaid == 0) {
-    $query['wfsfree'] = 'true';
+    $query['wfsfree'] = 'TRUE';
   }
 
   try {

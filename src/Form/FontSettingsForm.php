@@ -101,7 +101,7 @@ class FontSettingsForm extends ConfigFormBase {
       '#value' => $this->t('Import all fonts'),
       '#weight' => 10,
     ];
-    return parent::buildForm($form, $form_state);;
+    return parent::buildForm($form, $form_state);
   }
 
   /**
