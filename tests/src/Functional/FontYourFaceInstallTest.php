@@ -59,7 +59,7 @@ class FontYourFaceInstallTest extends BrowserTestBase {
     // Font settings page.
     $this->drupalGet(Url::fromRoute('font.settings'));
     $this->assertText(t('Settings form for @font-your-face. Support modules can use this form for settings or to import fonts.'));
-    $this->assertRaw(t('Import all fonts'));
+    $this->assertSession()->responseContains(t('Import all fonts'));
   }
 
 }
