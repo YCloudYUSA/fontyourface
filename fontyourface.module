@@ -362,7 +362,7 @@ function fontyourface_delete($provider) {
   // Delete fonts, 50 at a time.
   @set_time_limit(3600);
   while (TRUE) {
-    $storage_handler = \Drupal::entityManager()->getStorage('font');
+    $storage_handler = \Drupal::entityTypeManager()->getStorage('font');
     $fids = \Drupal::entityQuery('font')
       ->condition('pid', $provider)
       ->range(0, 50)
