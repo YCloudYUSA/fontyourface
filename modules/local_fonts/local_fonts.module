@@ -101,7 +101,7 @@ function local_fonts_save_and_generate_css(LocalFontConfigEntity $font_entity) {
   $directory = file_build_uri('fontyourface/local_fonts/' . $font_entity->id());
   $css_file = $directory . '/font.css';
   $font_file = $directory . '/font.woff';
-  file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+  file_prepare_directory($directory, Drupal\Core\File\FileSystemInterface::CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
 
   $css_file_data = "@font-face {\n";
   $css_file_data .= "font-family: '" . $font_entity->font_family . "';\n";
