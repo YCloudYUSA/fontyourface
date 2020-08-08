@@ -73,6 +73,7 @@ Known issues:
 MAINTAINERS
 -----------
 
+ * Neslee Canil Pinto - https://www.drupal.org/u/neslee-canil-pinto
  * Ashok Modi (BTMash) - https://www.drupal.org/u/btmash
 
 @font-your-face was created by Scott Reynen of Sliced Bread Labs and Aten Design
