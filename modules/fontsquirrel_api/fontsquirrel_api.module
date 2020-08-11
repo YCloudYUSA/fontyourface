@@ -40,7 +40,7 @@ function fontsquirrel_api_entity_presave(EntityInterface $entity) {
     if ($entity->pid->value == 'fontsquirrel_api' && $entity->isActivated()) {
       $metadata = $entity->getMetadata();
       $directory_location = _fontsquirrel_api_get_font_directory_location($entity);
-      file_prepare_directory($directory_location, FileSystemInterface::CREATE_DIRECTORY);
+      \Drupal::service('file_system')->prepareDirectory($directory_location, FileSystemInterface::CREATE_DIRECTORY);
       $zip_location = file_build_uri('fontyourface/fontsquirrel/' . $metadata['path'] . '-fontfacekit.zip');
       // Throw an exception; make it hard if this fails.
       $uri = 'https://www.fontsquirrel.com/fontfacekit/' . $metadata['path'];

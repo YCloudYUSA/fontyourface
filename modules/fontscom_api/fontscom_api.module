@@ -156,7 +156,7 @@ function fontscom_api_page_attachments(&$page) {
   if (!empty($font_css)) {
     $hash = hash('sha256', $font_css);
     $directory_location = 'fontyourface/fontscom_api';
-    file_prepare_directory($directory_location, FileSystemInterface::CREATE_DIRECTORY);
+    \Drupal::service('file_system')->prepareDirectory($directory_location, FileSystemInterface::CREATE_DIRECTORY);
     if (!file_exists($directory_location . '/fontyourface-stylesheet-' . $hash . '.css')) {
       file_unmanaged_save_data($font_css, $directory_location . '/fontyourface-stylesheet-' . $hash . '.css', FILE_EXISTS_REPLACE);
     }
