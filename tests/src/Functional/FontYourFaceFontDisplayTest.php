@@ -13,6 +13,11 @@ use Drupal\Tests\BrowserTestBase;
 class FontYourFaceFontDisplayTest extends BrowserTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Modules to install.
    *
    * @var array

@@ -7,6 +7,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Link;
 use Drupal\fontyourface\Entity\Font;
 
 /**
@@ -31,7 +32,7 @@ class FontYourFaceController extends ControllerBase {
           ]
         );
         $text = $this->t('Enable');
-        $link = \Drupal::l($text, $url);
+        $link = Link::fromTextAndUrl($text, $url)->toString();
 
         $response = new AjaxResponse();
         return $response->addCommand(new ReplaceCommand('#font-status-' . $font->id(), $link));
@@ -73,7 +74,7 @@ class FontYourFaceController extends ControllerBase {
           ]
         );
         $text = $this->t('Enable');
-        $link = \Drupal::l($text, $url);
+        $link = Link::fromTextAndUrl($text, $url)->toString();
 
         $response = new AjaxResponse();
         return $response->addCommand(new ReplaceCommand('#font-status-' . $font->id(), $link));
