@@ -8,7 +8,7 @@ use Drupal\fontyourface\FontDisplayInterface;
 use Drupal\fontyourface\Entity\Font;
 
 /**
- * Class FontDisplayForm.
+ * Form to display fonts.
  *
  * @package Drupal\fontyourface\Form
  */

@@ -21,7 +21,12 @@ class FontYourFaceController extends ControllerBase {
     try {
       $font->activate();
       if ($js == 'ajax') {
-        $url = Url::fromRoute('entity.font.deactivate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
+        $url = Url::fromRoute('entity.font.deactivate', [
+          'js' => 'nojs',
+          'font' => $font->id(),
+        ], [
+          'query' => \Drupal::destination()->getAsArray(),
+        ]);
         $url->setOptions(
           [
             'attributes' => [
@@ -63,7 +68,12 @@ class FontYourFaceController extends ControllerBase {
     try {
       $font->deactivate();
       if ($js == 'ajax') {
-        $url = Url::fromRoute('entity.font.activate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
+        $url = Url::fromRoute('entity.font.activate', [
+          'js' => 'nojs',
+          'font' => $font->id(),
+        ], [
+          'query' => \Drupal::destination()->getAsArray(),
+        ]);
         $url->setOptions(
           [
             'attributes' => [

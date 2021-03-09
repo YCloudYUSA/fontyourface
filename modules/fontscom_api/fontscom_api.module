@@ -298,7 +298,10 @@ function fontscom_api_get_projects() {
   try {
     $path = '/rest/json/Projects/?wfspstart=0&wfsplimit=100';
     $uri = FONTSCOM_API_BASE_URL . $path;
-    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $response = \Drupal::httpClient()->get($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+    ]);
     $data = json_decode((string) $response->getBody());
   }
   catch (Exception $e) {
@@ -362,7 +365,10 @@ function fontscom_api_get_all_fonts($start = 0, $limit = 50) {
   try {
     $path = '/rest/json/AllFonts/?' . UrlHelper::buildQuery($query);
     $uri = FONTSCOM_API_BASE_URL . $path;
-    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $response = \Drupal::httpClient()->get($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+    ]);
     $data = json_decode((string) $response->getBody());
   }
   catch (Exception $e) {
@@ -393,7 +399,10 @@ function fontscom_api_get_all_remote_fonts_count($reset = FALSE) {
       $path .= '&wfsfree=true';
     }
     $uri = FONTSCOM_API_BASE_URL . $path;
-    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $response = \Drupal::httpClient()->get($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+    ]);
     $data = json_decode((string) $response->getBody());
   }
   catch (Exception $e) {
@@ -421,7 +430,10 @@ function fontscom_api_get_allowed_api_filters($reset = FALSE) {
   try {
     $path = '/rest/json/AllFilterValues/';
     $uri = FONTSCOM_API_BASE_URL . $path;
-    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $response = \Drupal::httpClient()->get($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+    ]);
     $data = json_decode((string) $response->getBody());
   }
   catch (Exception $e) {
@@ -443,7 +455,10 @@ function fontscom_api_get_all_enabled_fonts() {
     $config = \Drupal::config('fontscom_api.settings');
     $path = '/rest/json/Fonts/?wfspid=' . $config->get('project');
     $uri = FONTSCOM_API_BASE_URL . $path;
-    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $response = \Drupal::httpClient()->get($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+    ]);
     $data = json_decode((string) $response->getBody());
   }
   catch (Exception $e) {
@@ -500,7 +515,10 @@ function fontscom_api_remove_font_from_current_project($fid) {
     $config = \Drupal::config('fontscom_api.settings');
     $path = '/rest/json/Fonts/?wfspid=' . $config->get('project') . '&wfsfid=' . $fid;
     $uri = FONTSCOM_API_BASE_URL . $path;
-    $response = \Drupal::httpClient()->delete($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $response = \Drupal::httpClient()->delete($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+    ]);
     $data = json_decode((string) $response->getBody());
     fontscom_api_publish_updated_project();
     return TRUE;
@@ -521,7 +539,10 @@ function fontscom_api_publish_updated_project() {
   try {
     $path = '/rest/json/Publish/';
     $uri = FONTSCOM_API_BASE_URL . $path;
-    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $response = \Drupal::httpClient()->get($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+    ]);
     return TRUE;
   }
   catch (Exception $e) {

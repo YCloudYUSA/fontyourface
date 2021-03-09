@@ -60,7 +60,10 @@ class FontYourFaceFontDisplayTest extends BrowserTestBase {
    * Tests font not displayed even when Arial is loaded.
    */
   public function testFontNotDisplayed() {
-    $this->drupalGet(url::fromRoute('entity.font.activate', ['font' => 1, 'js' => 'nojs']));
+    $this->drupalGet(url::fromRoute('entity.font.activate', [
+      'font' => 1,
+      'js' => 'nojs',
+    ]));
     $this->resetAll();
     // Assert no fonts load to start.
     $this->drupalGet('/node');
@@ -71,7 +74,10 @@ class FontYourFaceFontDisplayTest extends BrowserTestBase {
    * Tests font displayed once added in FontDisplay.
    */
   public function testFontDisplayedViaFontDisplayRule() {
-    $this->drupalGet(url::fromRoute('entity.font.activate', ['font' => 1, 'js' => 'nojs']));
+    $this->drupalGet(url::fromRoute('entity.font.activate', [
+      'font' => 1,
+      'js' => 'nojs',
+    ]));
 
     $edit = [
       'label' => 'Headers',

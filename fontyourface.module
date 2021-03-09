@@ -180,7 +180,12 @@ function fontyourface_preprocess_font(array &$variables) {
 
   $variables['attributes']['class'] = ['font'];
   if ($font->isDeactivated()) {
-    $url = Url::fromRoute('entity.font.activate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
+    $url = Url::fromRoute('entity.font.activate', [
+      'js' => 'nojs',
+      'font' => $font->id(),
+    ], [
+      'query' => \Drupal::destination()->getAsArray(),
+    ]);
     $url->setOptions(
       [
         'attributes' => [
@@ -197,7 +202,12 @@ function fontyourface_preprocess_font(array &$variables) {
     $variables['attributes']['class'][] = 'disabled';
   }
   if ($font->isActivated()) {
-    $url = Url::fromRoute('entity.font.deactivate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
+    $url = Url::fromRoute('entity.font.deactivate', [
+      'js' => 'nojs',
+      'font' => $font->id(),
+    ], [
+      'query' => \Drupal::destination()->getAsArray(),
+    ]);
     $url->setOptions(
       [
         'attributes' => [

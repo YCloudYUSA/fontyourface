@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 
 /**
- * Class LocalFontConfigEntityForm.
+ * Config form to set the local fonts.
  *
  * @package Drupal\local_fonts\Form
  */

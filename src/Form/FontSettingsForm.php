@@ -8,7 +8,7 @@ use Drupal\fontyourface\Entity\Font;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- * Class FontSettingsForm.
+ * Form to define the fonts.
  *
  * @package Drupal\fontyourface\Form
  *
