@@ -9,6 +9,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Link;
 use Drupal\taxonomy\Entity\Term;
@@ -131,7 +132,12 @@ function fontyourface_page_attachments(&$page) {
  * Adds body classes if certain regions have content.
  */
 function fontyourface_preprocess_html(&$variables) {
-  $variables['attributes']['class'][] = 'fontyourface';
+  if ($variables['attributes'] instanceof Attribute) {
+    $variables['attributes']->addClass('fontyourface');
+  }
+  else {
+    $variables['attributes']['class'][] = 'fontyourface';
+  }
 }
 
 /**
