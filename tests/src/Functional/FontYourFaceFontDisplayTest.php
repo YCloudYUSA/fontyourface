@@ -43,7 +43,7 @@ class FontYourFaceFontDisplayTest extends BrowserTestBase {
     $this->drupalLogin($this->adminUser);
 
     // Set up default themes.
-    \Drupal::service('theme_handler')->install(['bartik', 'seven']);
+    \Drupal::service('theme_installer')->install(['bartik', 'seven']);
     $this->config('system.theme')
       ->set('default', 'bartik')
       ->set('admin', 'seven')
