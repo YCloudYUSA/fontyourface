@@ -67,7 +67,7 @@ class FontYourFaceFontDisplayTest extends BrowserTestBase {
     $this->resetAll();
     // Assert no fonts load to start.
     $this->drupalGet('/node');
-    $this->assertNoRaw('<meta name="Websafe Font" content="Arial" />');
+    $this->assertSession()->responseNotContains('<meta name="Websafe Font" content="Arial" />');
   }
 
   /**

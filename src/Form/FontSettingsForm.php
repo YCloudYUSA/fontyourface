@@ -16,6 +16,13 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  */
 class FontSettingsForm extends ConfigFormBase {
 
+  /*
+   * Default hook constants api.
+   */
+  const HOOK_API = 'fontyourface_api';
+  const HOOK_IMPORT = 'fontyourface_api';
+
+
   /**
    * {@inheritdoc}
    */
@@ -80,20 +87,21 @@ class FontSettingsForm extends ConfigFormBase {
     // Set the module weight. There is some general Drupal funk around module
     // weights.
     module_set_weight('fontyourface', 1);
-    foreach (\Drupal::moduleHandler()->getImplementations('fontyourface_api') as $module_name) {
-      module_set_weight($module_name, 10);
-    }
-    foreach (\Drupal::moduleHandler()->getImplementations('fontyourface_import') as $module_name) {
-      $form['imports']['import_' . $module_name] = [
+    \Drupal::moduleHandler()->invokeAllWith(self::HOOK_API, function (callable $hook, string $module) {
+      module_set_weight($module, 10);
+    });
+    \Drupal::moduleHandler()->invokeAllWith(self::HOOK_IMPORT, function (callable $hook, string $module) use (&$form) {
+      $form['imports']['import_' . $module] = [
         '#type' => 'submit',
-        '#value' => $this->t('Import from @module', ['@module' => $module_name]),
+        '#value' => $this->t('Import from @module', ['@module' => $module]),
         '#attributes' => [
           'style' => 'margin: 10px;',
         ],
         '#prefix' => '<div>',
         '#suffix' => '</div>',
       ];
-    }
+      }
+    );
 
     $form['imports']['import'] = [
       '#type' => 'submit',
@@ -120,16 +128,16 @@ class FontSettingsForm extends ConfigFormBase {
       'operations' => [],
       'finished' => '\Drupal\fontyourface\Form\FontSettingsForm::importFinished',
     ];
-    foreach (\Drupal::moduleHandler()->getImplementations('fontyourface_import') as $module_name) {
-      if ($op == $this->t('Import all fonts') || $op == $this->t('Import from @module', ['@module' => $module_name])) {
+    \Drupal::moduleHandler()->invokeAllWith(self::HOOK_IMPORT, function (callable $hook, string $module) use ($op, &$batch) {
+      if ($op == $this->t('Import all fonts') || $op == $this->t('Import from @module', ['@module' => $module])) {
         $batch['operations'][] = [
           '\Drupal\fontyourface\Form\FontSettingsForm::importFromProvider',
           [
-            $module_name,
+            $module,
           ],
         ];
       }
-    }
+    });
     if (!empty($batch['operations'])) {
       batch_set($batch);
     }
