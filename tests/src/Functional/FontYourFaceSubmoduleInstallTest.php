@@ -49,8 +49,8 @@ class FontYourFaceSubmoduleInstallTest extends BrowserTestBase {
   public function testFontYourFaceSections() {
     // Font settings page.
     $this->drupalGet(Url::fromRoute('font.settings'));
-    $this->assertSession()->pageTextContains(t('Settings form for @font-your-face. Support modules can use this form for settings or to import fonts.'));
-    $this->assertSession()->responseContains(t('Import from websafe_fonts_test'));
+    $this->assertSession()->pageTextContains('Settings form for @font-your-face. Support modules can use this form for settings or to import fonts.');
+    $this->assertSession()->responseContains('Import from websafe_fonts_test');
   }
 
   /**
@@ -64,7 +64,7 @@ class FontYourFaceSubmoduleInstallTest extends BrowserTestBase {
     $this->drupalGet(Url::fromRoute('font.settings'));
     $this->submitForm([], 'Import from websafe_fonts_test');
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains(t('Finished importing fonts.'));
+    $this->assertSession()->pageTextContains('Finished importing fonts.');
 
     // Assert all fonts were imported.
     $this->drupalGet(Url::fromRoute('entity.font.collection'));

@@ -46,7 +46,7 @@ class FontYourFaceProviderFilter extends StringFilter {
    */
   protected function valueForm(&$form, FormStateInterface $form_state) {
     $options = ['All' => '- Any -'];
-    \Drupal::moduleHandler()->invokeAllWith(self::HOOK, function (callable $hook, string $module) use (&$options) {
+    $this->moduleHandler->invokeAllWith(self::HOOK, function (callable $hook, string $module) use (&$options) {
       $module_info = $hook();
       $options[$module] = $module_info['name'];
     });

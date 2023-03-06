@@ -2,10 +2,13 @@
 
 namespace Drupal\fontyourface\Form;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\fontyourface\Entity\Font;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form to define the fonts.
@@ -22,6 +25,38 @@ class FontSettingsForm extends ConfigFormBase {
   const HOOK_API = 'fontyourface_api';
   const HOOK_IMPORT = 'fontyourface_api';
 
+
+  /**
+   * The theme handler.
+   *
+   * @var \Drupal\Core\Extension\ThemeHandlerInterface
+   */
+  protected $themeHandler;
+
+  /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(ThemeHandlerInterface $theme_handler, ModuleHandlerInterface $module_handler) {
+    $this->themeHandler = $theme_handler;
+    $this->moduleHandler = $module_handler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('theme_handler'),
+      $container->get('module_handler'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -61,7 +96,7 @@ class FontSettingsForm extends ConfigFormBase {
       '#description' => $this->t('This will load all fonts that have been enabled regardless of theme. Warning: this may add considerable download weight to your pages depending on the number of enabled fonts'),
     ];
     $themes = [];
-    foreach (\Drupal::service('theme_handler')->listInfo() as $name => $theme) {
+    foreach ($this->themeHandler->listInfo() as $name => $theme) {
       if ($theme->status === 1) {
         $themes[$name] = $theme->info['name'];
       }
@@ -87,10 +122,10 @@ class FontSettingsForm extends ConfigFormBase {
     // Set the module weight. There is some general Drupal funk around module
     // weights.
     module_set_weight('fontyourface', 1);
-    \Drupal::moduleHandler()->invokeAllWith(self::HOOK_API, function (callable $hook, string $module) {
+    $this->moduleHandler->invokeAllWith(self::HOOK_API, function (callable $hook, string $module) {
       module_set_weight($module, 10);
     });
-    \Drupal::moduleHandler()->invokeAllWith(self::HOOK_IMPORT, function (callable $hook, string $module) use (&$form) {
+    $this->moduleHandler->invokeAllWith(self::HOOK_IMPORT, function (callable $hook, string $module) use (&$form) {
       $form['imports']['import_' . $module] = [
         '#type' => 'submit',
         '#value' => $this->t('Import from @module', ['@module' => $module]),
@@ -100,7 +135,7 @@ class FontSettingsForm extends ConfigFormBase {
         '#prefix' => '<div>',
         '#suffix' => '</div>',
       ];
-      }
+    }
     );
 
     $form['imports']['import'] = [
@@ -128,7 +163,7 @@ class FontSettingsForm extends ConfigFormBase {
       'operations' => [],
       'finished' => '\Drupal\fontyourface\Form\FontSettingsForm::importFinished',
     ];
-    \Drupal::moduleHandler()->invokeAllWith(self::HOOK_IMPORT, function (callable $hook, string $module) use ($op, &$batch) {
+    $this->moduleHandler->invokeAllWith(self::HOOK_IMPORT, function (callable $hook, string $module) use ($op, &$batch) {
       if ($op == $this->t('Import all fonts') || $op == $this->t('Import from @module', ['@module' => $module])) {
         $batch['operations'][] = [
           '\Drupal\fontyourface\Form\FontSettingsForm::importFromProvider',
@@ -143,7 +178,7 @@ class FontSettingsForm extends ConfigFormBase {
     }
 
     if ($op == $this->t('Save configuration')) {
-      $config = $this->config('fontyourface.settings')
+      $this->config('fontyourface.settings')
         ->set('load_all_enabled_fonts', $values['load_all_enabled_fonts'])
         ->set('load_on_themes', $values['load_on_themes'])
         ->save();

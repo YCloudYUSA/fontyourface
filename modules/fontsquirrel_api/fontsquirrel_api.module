@@ -51,19 +51,20 @@ function fontsquirrel_api_entity_presave(EntityInterface $entity) {
       }
       $files = [];
       $font_pathinfo = pathinfo($metadata['font_filename']);
-      if ($zip = zip_open(\Drupal::service('file_system')->realpath($zip_location))) {
-        while ($entry = zip_read($zip)) {
-          $entry_name = zip_entry_name($entry);
+      $zipArchive = new ZipArchive();
+      if ($zip = $zipArchive->open(\Drupal::service('file_system')->realpath($zip_location))) {
+        while ($entry = $zipArchive->getFromName($zip)) {
+          $entry_name = $zipArchive->statIndex($entry);
           $path_info = pathinfo($entry_name);
           if (strpos($path_info['filename'], $font_pathinfo['filename'] . '-webfont') !== FALSE &&
               in_array($path_info['extension'], ['eot', 'ttf', 'woff', 'svg'])) {
             $files[$path_info['extension']] = $path_info['filename'] . '.' . $path_info['extension'];
-            $data = zip_entry_read($entry, zip_entry_filesize($entry));
+            $data = $zipArchive->getFromName($entry, $zipArchive->statIndex($entry));
             \Drupal::service('file_system')->saveData($data, $directory_location . '/' . $path_info['filename'] . '.' . $path_info['extension'], FileSystemInterface::EXISTS_REPLACE);
           }
-          zip_entry_close($entry);
+          $zipArchive->close();
         }
-        zip_close($zip);
+        $zipArchive->close();
       }
       if (!empty($files)) {
         $css_file = _fontsquirrel_api_generate_fontfamily_css_stylesheet($entity->css_family->value, $files);
