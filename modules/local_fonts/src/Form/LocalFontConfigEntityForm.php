@@ -137,9 +137,9 @@ class LocalFontConfigEntityForm extends EntityForm {
       '#description' => $this->t('The font file must be in WOFF format since that is accepted by all modern browsers.'),
       '#size' => 50,
       '#upload_validators' => [
-        [FileValidator::class, 'validateExtensions'] => ['woff'],
-        [FileValidator::class, 'validateSize'] => [Environment::getUploadMaxSize()],
-        [FileValidator::class, 'validateNameLength'] => [],
+        'FileExtension' => ['extensions' => 'woff'],
+        'FileSizeLimit' => ['fileLimit' => Environment::getUploadMaxSize()],
+        'FileNameLength' => [],
       ],
     ];
 
