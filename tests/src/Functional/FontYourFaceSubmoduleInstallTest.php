@@ -22,7 +22,7 @@ class FontYourFaceSubmoduleInstallTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['views', 'fontyourface', 'websafe_fonts_test'];
+  protected static $modules = ['views', 'fontyourface', 'websafe_fonts_test'];
 
   /**
    * A test user with permission to access the @font-your-face sections.
@@ -34,7 +34,7 @@ class FontYourFaceSubmoduleInstallTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     // Create and log in an administrative user.
     $this->adminUser = $this->drupalCreateUser([

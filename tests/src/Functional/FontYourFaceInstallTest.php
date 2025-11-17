@@ -22,7 +22,7 @@ class FontYourFaceInstallTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [];
+  protected static $modules = [];
 
   /**
    * A test user with permission to access the @font-your-face sections.
@@ -34,7 +34,7 @@ class FontYourFaceInstallTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     \Drupal::service('module_installer')->install(['views', 'fontyourface']);
 
