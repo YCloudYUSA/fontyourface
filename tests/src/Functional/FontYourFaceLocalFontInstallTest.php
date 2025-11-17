@@ -22,7 +22,7 @@ class FontYourFaceLocalFontInstallTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['views', 'fontyourface', 'local_fonts'];
+  protected static $modules = ['views', 'fontyourface', 'local_fonts'];
 
   /**
    * A test user with permission to access the @font-your-face sections.
@@ -34,7 +34,7 @@ class FontYourFaceLocalFontInstallTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     // Create and log in an administrative user.
     $this->adminUser = $this->drupalCreateUser([

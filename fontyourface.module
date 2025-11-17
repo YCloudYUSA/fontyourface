@@ -23,22 +23,28 @@ use Drupal\taxonomy\Entity\Term;
  * Implements hook_module_implements_alter().
  */
 function fontyourface_module_implements_alter(&$implementations, $hook) {
-  if ($hook == 'page_attachments') {
+  $fontyourface_api_modules = [
+    'adobe_edge_fonts',
+    'fontscom_api',
+    'fontsquirrel_api',
+    'google_fonts_api',
+    'local_fonts',
+    'typekit_api',
+  ];
+  
+  if ($hook === 'page_attachments') {
     // Move the fontyourface and submodules to be last to build on page.
     $list = ['fontyourface'];
-    $modules = \Drupal::moduleHandler()->hasImplementations('fontyourface_api');
-    if (is_array($modules) || is_object($modules)) {
-      foreach ($modules as $module_name) {
-        if (isset($implementations[$module_name])) {
-          $list[] = $module_name;
-        }
+    foreach ($fontyourface_api_modules as $module_name) {
+      if (isset($implementations[$module_name])) {
+        $list[] = $module_name;
       }
+    }
 
-      foreach ($list as $module_name) {
-        $group = $implementations[$module_name];
-        unset($implementations[$module_name]);
-        $implementations[$module_name] = $group;
-      }
+    foreach ($list as $module_name) {
+      $group = $implementations[$module_name];
+      unset($implementations[$module_name]);
+      $implementations[$module_name] = $group;
     }
   }
 }
